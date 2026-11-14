@@ -15,7 +15,7 @@ public class LibroDTO {
 	@NotBlank(message = "El autor es requerido")
 	private String autor;
 	
-	@Min(value = 1450, message = "Año invalido")
+	@Min(value = 100, message = "Año invalido")
 	private int anioPublicacion;
 	
 	@NotNull(message = "La cantidad de ejemplares es obligatoria")

@@ -148,6 +148,18 @@ public class LibroController {
 	}
 	
 	
+	@PutMapping(value = "/actualizar-con-foto/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<LibroResponseDTO> updateBookWithPhoto(@PathVariable Long id, @RequestPart("libro") @Valid LibroDTO nuevoLibro,
+			@RequestPart(name="imagen", required = false) MultipartFile imagen){
+		
+		
+		
+		LibroResponseDTO libroActualizado = libroService.actualizar(id, nuevoLibro);
+		
+	    return ResponseEntity.ok(libroActualizado);
+	}
+	
 	
 	//Eliminar libro
 	@DeleteMapping("/eliminar/{id}")

@@ -419,11 +419,11 @@ public class LibroService {
 	
 	
 	
-	// Cada vez que se reducen ejemplares o se actualiza el libro, borramos la caché de ese libro específico
+	// cada vez que se reducen ejemplares o se actualiza el libro, borramos la caché de ese libro específico
 	@Transactional
 	@Caching(evict = {
 	        @CacheEvict(value = "libros", key = "#id"),
-	        @CacheEvict(value = "catalogoGeneral", allEntries = true) // Limpia toda la lista
+	        @CacheEvict(value = "catalogoGeneral", allEntries = true) // limpia toda la lista
 	    })
     public void actualizarStock(Long id, Integer cantidad) {
         Libro libro = libroRepository.findById(id)
@@ -440,13 +440,56 @@ public class LibroService {
 	        throw new RuntimeException("Error: El movimiento literario no existe");
 	    }
 
-	    // 1. Buscamos las entidades reales en la base de datos
+	    // Buscamos las entidades reales en la base de datos
 	    List<Libro> librosEntidad = libroRepository.findByCorrienteId(movimientoId);
 
-	    // 2. Las mapeamos a DTO para limpiar las referencias circulares y proteger la arquitectura
+	    //  mapeamos a DTO para limpiar las referencias circulares y proteger la arquitectura
 	    return librosEntidad.stream()
 	            .map(libroMapper::toResponseDTO)
 	            .toList();
+	}
+
+
+	public LibroResponseDTO actualizarConImagen(Long id, @Valid LibroDTO nuevoLibro, MultipartFile imagen) {
+	    Libro libro = libroRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("No se encontró el libro con id : " + id));
+
+	        // 1. Mapea los campos simples (primitivos y Strings)
+	        libroMapper.updateEntityFromDto(nuevoLibro, libro);
+
+	        // 2. Asigna la relación Subgénero
+	        if (nuevoLibro.getSubgeneroId() != null) {
+	            Subgenero subgenero = subgeneroRepo.findById(nuevoLibro.getSubgeneroId())
+	                .orElseThrow(() -> new RuntimeException("No se encontró el subgénero con id: " + nuevoLibro.getSubgeneroId()));
+	            libro.setSubgenero(subgenero);
+	        }
+
+	        // 3. Asigna la relación Corriente Literaria
+	        if (nuevoLibro.getCorrienteId() != null) {
+	            CorrienteLiteraria corriente = corrienteRepo.findById(nuevoLibro.getCorrienteId())
+	                .orElseThrow(() -> new RuntimeException("No se encontró la corriente con id: " + nuevoLibro.getCorrienteId()));
+	            libro.setCorriente(corriente);
+	        }
+	        
+	   	 // B. Procesamos el archivo físico e inyectamos el nombre en la entidad
+		    if (imagen != null && !imagen.isEmpty()) {
+		        try {
+		         
+		        	String urlPublicaCloudinary = cloudinaryService.subirImagen(imagen);
+		            libro.setImagenNombre(urlPublicaCloudinary);
+		        } catch (IOException e) {
+		            throw new RuntimeException("Error al guardar el archivo de la portada", e);
+		        }
+		    }
+
+
+	        // 4. Persiste los cambios
+	        Libro libroGuardado = libroRepository.save(libro);
+	        
+	        return libroMapper.toResponseDTO(libroGuardado); 
+	
+		
+		
 	}
 
 
