@@ -328,35 +328,7 @@ public class LibroService {
 	}
 	
 	
-	@Transactional
-    public LibroResponseDTO actualizar(Long id, LibroDTO nuevoLibro) {
-        
-        Libro libro = libroRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("No se encontró el libro con id : " + id));
 
-        // 1. Mapea los campos simples (primitivos y Strings)
-        libroMapper.updateEntityFromDto(nuevoLibro, libro);
-
-        // 2. Asigna la relación Subgénero
-        if (nuevoLibro.getSubgeneroId() != null) {
-            Subgenero subgenero = subgeneroRepo.findById(nuevoLibro.getSubgeneroId())
-                .orElseThrow(() -> new RuntimeException("No se encontró el subgénero con id: " + nuevoLibro.getSubgeneroId()));
-            libro.setSubgenero(subgenero);
-        }
-
-        // 3. Asigna la relación Corriente Literaria
-        if (nuevoLibro.getCorrienteId() != null) {
-            CorrienteLiteraria corriente = corrienteRepo.findById(nuevoLibro.getCorrienteId())
-                .orElseThrow(() -> new RuntimeException("No se encontró la corriente con id: " + nuevoLibro.getCorrienteId()));
-            libro.setCorriente(corriente);
-        }
-
-        // 4. Persiste los cambios
-        Libro libroGuardado = libroRepository.save(libro);
-        
-        return libroMapper.toResponseDTO(libroGuardado); 
-    }
-	
 	
 	@Transactional
 	public void eliminar(Long id) {
@@ -450,7 +422,7 @@ public class LibroService {
 	}
 
 
-	public LibroResponseDTO actualizarConImagen(Long id, @Valid LibroDTO nuevoLibro, MultipartFile imagen) {
+	public LibroResponseDTO actualizar(Long id, @Valid LibroDTO nuevoLibro, MultipartFile imagen) {
 	    Libro libro = libroRepository.findById(id)
 	            .orElseThrow(() -> new RuntimeException("No se encontró el libro con id : " + id));
 

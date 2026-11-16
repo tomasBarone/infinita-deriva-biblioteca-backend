@@ -58,7 +58,8 @@ public class LibroController {
 	}
 	
 	
-     //POST: Crear un Libro
+
+	//POST: Crear un Libro
 	@PostMapping("/crear")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<LibroResponseDTO> crearLibro(@Valid @RequestBody LibroDTO libroDTO){
@@ -131,31 +132,17 @@ public class LibroController {
 	}
 	
 	
-	//Actualizar libro
-	@PutMapping("/actualizar/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<LibroResponseDTO> updateBook (@PathVariable Long id, @Valid @RequestBody LibroDTO nuevoLibro){
-		
-		
-	    System.out.println(nuevoLibro);
-		LibroResponseDTO libro = libroService.actualizar(id, nuevoLibro);
-		
-		
-		
-		return new ResponseEntity<>(libro, HttpStatus.OK);
-		//return ResponseEntity.ok(libro);
-		
-	}
+
 	
 	
-	@PutMapping(value = "/actualizar-con-foto/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PutMapping(value = "/actualizar/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<LibroResponseDTO> updateBookWithPhoto(@PathVariable Long id, @RequestPart("libro") @Valid LibroDTO nuevoLibro,
 			@RequestPart(name="imagen", required = false) MultipartFile imagen){
 		
 		
 		
-		LibroResponseDTO libroActualizado = libroService.actualizar(id, nuevoLibro);
+		LibroResponseDTO libroActualizado = libroService.actualizar(id, nuevoLibro,imagen);
 		
 	    return ResponseEntity.ok(libroActualizado);
 	}
