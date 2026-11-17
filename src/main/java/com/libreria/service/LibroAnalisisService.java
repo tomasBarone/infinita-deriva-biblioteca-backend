@@ -41,7 +41,7 @@ public class LibroAnalisisService {
 		analisisDTO.setEjePsicologico(analisisResponse.getEjePsicologico());
 		analisisDTO.setSustratoFilosofico(analisisResponse.getSustratoFilosofico());
 		analisisDTO.setMapaSensaciones(analisisResponse.getMapaSensaciones());
-		
+		analisisDTO.setContextoHistorico(analisisResponse.getContextoHistorico());
 		
 		
 		return analisisDTO;
@@ -61,6 +61,7 @@ public class LibroAnalisisService {
 		analisisEntity.setEjePsicologico(analisis.getEjePsicologico());
 		analisisEntity.setMapaSensaciones(analisis.getMapaSensaciones());
 		analisisEntity.setSustratoFilosofico(analisis.getSustratoFilosofico());
+		analisisEntity.setContextoHistorico(analisis.getContextoHistorico());
 		libroAnalisisRepo.save(analisisEntity);
 		
 		
@@ -70,6 +71,7 @@ public class LibroAnalisisService {
 		analisisResponseDTO.setSustratoFilosofico(analisisEntity.getSustratoFilosofico());
 		analisisResponseDTO.setMapaSensaciones(analisisEntity.getMapaSensaciones());
 		analisisResponseDTO.setIntroduccionTeorica(analisisEntity.getIntroduccionTeorica());
+		analisisResponseDTO.setContextoHistorico(analisisEntity.getContextoHistorico());
 		
 	
 		
@@ -89,7 +91,7 @@ public class LibroAnalisisService {
 	    analisisEntity.setIntroduccionTeorica(analisis.getIntroduccionTeorica());
 	    analisisEntity.setMapaSensaciones(analisis.getMapaSensaciones());
 	    analisisEntity.setSustratoFilosofico(analisis.getSustratoFilosofico());
-
+        analisisEntity.setContextoHistorico(analisis.getContextoHistorico());
 	   
 	    libroAnalisisRepo.save(analisisEntity);
 

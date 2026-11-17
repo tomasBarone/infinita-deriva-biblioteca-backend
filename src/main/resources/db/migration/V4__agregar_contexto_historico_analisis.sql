@@ -1,0 +1,1 @@
+ALTER TABLE libros_analisis ADD COLUMN contexto_historico TEXT;

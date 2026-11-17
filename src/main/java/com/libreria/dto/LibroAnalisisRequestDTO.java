@@ -10,12 +10,13 @@ public class LibroAnalisisRequestDTO {
 	private String mapaSensaciones;
 	private String sustratoFilosofico;
 	private String ejePsicologico;
+	private String contextoHistorico;
 	
 	public LibroAnalisisRequestDTO() {
 		
 	}
 	
-	public LibroAnalisisRequestDTO(Long id, String libro, String introduccionTeorica, String mapaSensaciones, String sustratoFilosofico, String ejePsicologico) {
+	public LibroAnalisisRequestDTO(Long id, String libro, String introduccionTeorica, String mapaSensaciones, String sustratoFilosofico, String ejePsicologico, String contextoHistorico) {
 		
 		this.id = id;
 		this.libro = libro;
@@ -23,8 +24,7 @@ public class LibroAnalisisRequestDTO {
 		this.mapaSensaciones = mapaSensaciones;
 		this.sustratoFilosofico = sustratoFilosofico;
 		this.ejePsicologico = ejePsicologico;
-		
-		
+		this.contextoHistorico = contextoHistorico;		
 	}
 
 	public String getLibro() {
@@ -73,6 +73,14 @@ public class LibroAnalisisRequestDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getContextoHistorico() {
+		return contextoHistorico;
+	}
+
+	public void setContextoHistorico(String contextoHistorico) {
+		this.contextoHistorico = contextoHistorico;
 	}
 	
 	

@@ -29,6 +29,8 @@ public class LibroAnalisis {
 	private String sustratoFilosofico;
 	@Column(columnDefinition = "TEXT")
 	private String ejePsicologico;
+	@Column(columnDefinition = "TEXT")
+	private String contextoHistorico;
 	
 	
 	public LibroAnalisis() {
@@ -36,7 +38,7 @@ public class LibroAnalisis {
 	}
 	
 	public LibroAnalisis(Long id, Libro libro, String introduccionTeorica, String mapaSensaciones,
-			String sustratoFilosofico, String ejePsicologico) {
+			String sustratoFilosofico, String ejePsicologico,String contextoHistorico) {
 		super();
 		this.id = id;
 		this.libro = libro;
@@ -44,6 +46,7 @@ public class LibroAnalisis {
 		this.mapaSensaciones = mapaSensaciones;
 		this.sustratoFilosofico = sustratoFilosofico;
 		this.ejePsicologico = ejePsicologico;
+		this.contextoHistorico = contextoHistorico;
 	}
 
 
@@ -82,6 +85,12 @@ public class LibroAnalisis {
 	}
 	public void setEjePsicologico(String ejePsicologico) {
 		this.ejePsicologico = ejePsicologico;
+	}
+	public String getContextoHistorico() {
+		return contextoHistorico;
+	}
+	public void setContextoHistorico(String contextoHistorico) {
+		this.contextoHistorico = contextoHistorico;
 	}
 
 	@Override

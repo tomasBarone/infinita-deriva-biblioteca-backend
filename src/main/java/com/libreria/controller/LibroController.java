@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.libreria.dto.CorrienteResponseDTO;
 import com.libreria.dto.LibroDTO;
+import com.libreria.dto.LibroResponseDTO;
 import com.libreria.exception.GlobalExceptionHandler;
 
 import com.libreria.model.Libro;
@@ -34,9 +35,6 @@ import com.libreria.model.Libro;
 import com.libreria.service.LibroService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import com.libreria.dto.LibroResponseDTO;
-
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
