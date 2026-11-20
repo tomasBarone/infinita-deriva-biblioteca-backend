@@ -35,5 +35,16 @@ public class EmailListener {
             e.printStackTrace();
         }
     }
+    
+    @Async
+    @org.springframework.context.event.EventListener
+    public void procesarSolicitudPaseLector(com.libreria.event.PaseLectorSolicitadoEvent event) {
+        try {
+            emailService.enviarSolicitudPaseLector(event.getNumeroReferencia(), event.getSolicitud());
+        } catch (Exception e) {
+            System.err.println("Error al enviar email de Pase Lector [" + event.getNumeroReferencia() + "]: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 }

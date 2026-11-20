@@ -14,10 +14,10 @@
 </head>
 <body>
     <div class="container">
-        <h2>¡Gracias por tu compra en Librería Shámata!</h2>
-        <p>Hola, tu orden <b>#<span th:text="${orden.id}">123</span></b> fue procesada con éxito.</p>
+        <h2>Confirmación de Solicitud Bibliográfica — Infinita Deriva</h2>
+        Hola, tu solicitud #<span th:text="${orden.id}">123</span> fue registrada con éxito.
 
-        <h3>Detalle de la compra:</h3>
+        <h3>Obras solicitadas:</h3>
         <table class="item-table">
             <!-- Iteramos sobre los detalles u ordenItems -->
             <tr th:each="detalle : ${orden.detalles}">
@@ -31,16 +31,11 @@
                     <strong th:text="${detalle.libro.titulo}">Título del Libro</strong><br/>
                     <small>Cantidad: <span th:text="${detalle.cantidad}">1</span></small>
                 </td>
-                <td style="text-align: right;">
-                    <b th:text="'$' + ${detalle.subtotal}">$0</b>
-                </td>
+               
             </tr>
         </table>
 
-        <div class="total">
-            <strong>Total Pagado: $<span th:text="${orden.total}">0.00</span></strong>
-        </div>
-
+        
         <p style="margin-top: 30px; font-size: 0.9em; color: #777;">¡Que disfrutes tu lectura!</p>
     </div>
 </body>

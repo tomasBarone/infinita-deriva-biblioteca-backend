@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.libreria.dto.DetalleOrdenRequest;
-import com.libreria.event.LibroCompradoEvent;
+import com.libreria.event.LibroReservadoEvent;
 import com.libreria.model.DetalleOrden;
 import com.libreria.model.Libro;
 import com.libreria.model.Orden;
@@ -48,7 +48,7 @@ public class OrdenService {
             DetalleOrden detalle = new DetalleOrden(libro, item.getCantidad());
 
             // Publicamos el evento síncrono local para impactar el stock y limpiar Redis
-            eventPublisher.publishEvent(new LibroCompradoEvent(item.getLibroId(), item.getCantidad()));
+            eventPublisher.publishEvent(new LibroReservadoEvent(item.getLibroId(), item.getCantidad()));
 
             return detalle;
         }).collect(Collectors.toList());
